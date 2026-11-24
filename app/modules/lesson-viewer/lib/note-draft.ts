@@ -9,13 +9,13 @@ export type NoteDraft = {
   counter: string;
 };
 
-// The server trims a note before it checks the length and stores it, so the
-// draft is judged the same way.
+// The server trims a note before it checks the length and stores it (so
+// `saved` is already trimmed); the draft is judged the same way.
 export function describeNoteDraft(draft: string, saved: string): NoteDraft {
   const body = draft.trim();
   const tooLong = body.length > MAX_NOTE_LENGTH;
   const status: NoteDraftStatus =
-    body.length === 0 ? "empty" : body === saved.trim() ? "saved" : "unsaved";
+    body.length === 0 ? "empty" : body === saved ? "saved" : "unsaved";
 
   return {
     status,
